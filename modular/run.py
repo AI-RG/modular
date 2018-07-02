@@ -38,7 +38,7 @@ loop_coef = 0.01
 hparam = "test"
 
 tf.reset_default_graph()
-sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))
+sess = tf.Session()
 
 # set data placeholders
 x = tf.placeholder(tf.float32, shape=[None, 784], name="x")
@@ -151,7 +151,7 @@ def train():
     for i in range(nbatches):
         batch = mnist.train.next_batch(100)
         # training accuracy
-        if i % 5 == 0 and i % 20 != 0:
+        if i % 5 == 0:
             [train_accuracy, s] = sess.run([accuracy, summ], \
                 feed_dict={x: batch[0], y: batch[1]})
             train_writer.add_summary(s, i)
@@ -161,6 +161,7 @@ def train():
             [test_acc, s, l, r] = sess.run([accuracy, accuracy_summary, loops, reg], \
                 feed_dict={x: test_batch[0], y: test_batch[1]})
             test_writer.add_summary(s, i)
+            print('batches: ', str(i), '; accuracy: ', str(test_acc))
             if save_plots:
                 batch_list.append(i)
                 train_accuracy_list.append(train_accuracy)
@@ -170,10 +171,10 @@ def train():
         if i % 500 == 0:
             sess.run(assignment, feed_dict={x: mnist.test.images[:1024], \
                 y: mnist.test.labels[:1024]})
-            saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)            
-    
+            saver.save(sess, os.path.join(LOGDIR, "model.ckpt"), i)
+        sess.run(train_step_reg, feed_dict={x: batch[0], y: batch[1]})
+        
     if save_plots:
-        if save_plots:
         # train accuracy
         plot(batch_list, train_accuracy_list, 'Training accuracy', \
             xlabel='number of batches', ylabel='training accuracy', \
@@ -186,9 +187,14 @@ def train():
         plot(batch_list, loops_list, 'Loop regularization term', \
             xlabel='number of batches', ylabel='loop regularization term magnitude', \
             ylegend='loop reg.')
+        # loops with log
+        plot(batch_list, loops_list, 'Loop regularization term (log scale)', \
+            xlabel='number of batches', ylabel='loop regularization term magnitude', \
+            ylegend='loop reg.', log=True)
         # regularization
         plot(batch_list, reg_list, 'Weight decay loss magnitude', \
             xlabel='number of batches', ylabel='weight decay loss magnitude', \
             ylegend='weight decay')
 
 train()
+sess.close()

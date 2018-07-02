@@ -2,6 +2,7 @@ import os
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import pylab
 import tensorflow as tf
 
 """
@@ -41,7 +42,7 @@ def plot(xs, ys, title, smooth_window = None, xlabel=None, ylabel=None, \
     ylegend=None, log=False):
     if smooth_window is None:
         smooth_window = int(len(xs)/10)
-    if ylegend = None:
+    if ylegend is None:
         ylegend = 'values'
     if log == True:
         ys = [math.log(y) for y in ys]
@@ -58,9 +59,11 @@ def plot(xs, ys, title, smooth_window = None, xlabel=None, ylabel=None, \
     plt.ylabel(ylabel)
     legend = ax.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     # save figure to current directory
-    pylab.savefig(title+'.png', bbox_extra_artists=(legend,), bbox_inches='tight')
+    plt.savefig(title+'.png', bbox_extra_artists=(legend,), bbox_inches='tight')
     
 def smooth(xs, width):
+    if width == 0: # handle short xs
+        width = 1
     assert width < len(xs)
     xsmoothed = []
     smooth = 0.
