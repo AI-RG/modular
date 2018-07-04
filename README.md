@@ -32,8 +32,15 @@ This penalty is designed to work with stochastic gradient descent in such a way 
 
 The larger the three other edges are in a loop, the more the final edge will be increased. Moreover, this particular choice of regularization has the effect of increasing this weight most when the weights among the other edges are evenly distributed (for a sum of weights held constant).
 
-
 ## Results and future directions
+
+The first images show training results on the toy example of 
 
 
 ## Details
+
+### How to run the code
+
+### Technical considerations
+
+## Bibliography
