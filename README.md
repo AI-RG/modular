@@ -34,17 +34,31 @@ The larger the three other edges are in a loop, the more the final edge will be 
 
 ## Results and future directions
 
+### MNIST
+
 The first figure shows training results on the toy example of the MNIST dataset. In fact, in this case, we observe that the modularity term grows around the same time that the test accuracy beings to decrase. In this small example, it seems we cannot improve on naive SGD optimization with cross-entropy.
 
 <img src="https://github.com/AI-RG/modular/blob/master/assets/testacc.png" alt="test" width="600px"/>
 
 <img src="https://github.com/AI-RG/modular/blob/master/assets/loops.png" alt="loops" width="600px"/>
 
+### ResNet on ImageNet
 
+In order to give modularity the greatest chance of success, we opted to retrain the final layers of a deep residual network on its original ImageNet database. The rationale for choosing ResNet as an architecture is that it is comparatively easy to be quite deep, and this depth is advantageous to modularity: the cost of computing the modularity regularization term grows suerplinearly with layer width but only linearly with depth, since each triple of consecutive layers has its own separate term.
 
 ## Details
 
 ### How to run the code
+
+Requirements: Python 3.5+ and TensorFlow 1.8.0+
+
+The code can be run by downloading the repository and simply running
+    python run.py
+from within the directory `modular`.
+
+Quantities of interest are automatically logged to TensorBoard, where they can be tracked in real time during training. Logged quantities include individual weights, train/test accuracies, and the magnitudes of loop regularization terms and weight decay terms. These logs are saved in the directory `/tmp/modular/` by default. To monitor their values, simply run
+    tensorboard --logdir=/tmp/modular
+in the command line. Tensorboard will return the address of a tensorboard session that you can open in your internet browser.
 
 ### Technical considerations
 
