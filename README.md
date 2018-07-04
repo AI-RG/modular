@@ -17,9 +17,8 @@ We cannot directly apply this procedure to ANNs for a few reasons. The most obvi
 Concretely, we add the term:
 
 Concretely, we consider the following regularization term:
-\begin{eqnarray}
-L_{mod} & = & -\sum_{L} \sum_{ijkl}W^{(L)}_{ij}W^{(L)}_{ik}W^{(L+1)}_{jl}W^{(L+1)}_{jl} \nonumber 
-\end{eqnarray}
+![eq1](https://github.com/AI-RG/modular/blob/master/assets/loss1.gif)
+Format: ![Alt Text](url)
 Because this term tends to increase weight values, we must balance it with an appriate weight decay term:
 \begin{eqnarray}
 L_{reg} & = & -\left({L_{mod}}\right)^{\frac{1}{2}} + C\sum_{L} \sum_{ij}\left(W^{(L)}_{ij}\right)^4 \nonumber
