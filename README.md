@@ -36,8 +36,9 @@ The larger the three other edges are in a loop, the more the final edge will be 
 
 The first figure shows training results on the toy example of the MNIST dataset. In fact, in this case, we observe that the modularity term grows around the same time that the test accuracy beings to decrase. In this small example, it seems we cannot improve on naive SGD optimization with cross-entropy.
 
-![fig1-1](https://github.com/AI-RG/modular/blob/master/modular/testacc.png)
-![fig1-2](https://github.com/AI-RG/modular/blob/master/modular/loops.png)
+<img src="https://github.com/AI-RG/modular/blob/master/assets/testacc.png" alt="test" width="600px"/>
+
+<img src="https://github.com/AI-RG/modular/blob/master/assets/loops.png" alt="loops" width="600px"/>
 
 
 
