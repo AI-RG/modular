@@ -17,21 +17,20 @@ We cannot directly apply this procedure to ANNs for a few reasons. The most obvi
 Concretely, we add the term:
 
 Concretely, we consider the following regularization term:
+
 ![eq1](https://github.com/AI-RG/modular/blob/master/assets/loss1.gif)
-Format: ![Alt Text](url)
+
 Because this term tends to increase weight values, we must balance it with an appriate weight decay term:
-\begin{eqnarray}
-L_{reg} & = & -\left({L_{mod}}\right)^{\frac{1}{2}} + C\sum_{L} \sum_{ij}\left(W^{(L)}_{ij}\right)^4 \nonumber
-\end{eqnarray}
+
+![eq2](https://github.com/AI-RG/modular/blob/master/assets/loss_total.gif)
+
 This regularization has the effect of suppressing values of weights that become too large, and due to the difference in powers, no weight can grow unbounded in magnitude.
 
 This penalty is designed to work with stochastic gradient descent in such a way that each update step increases the values of the lowest weights in four-node loops:
-\begin{eqnarray}
-\delta W^{(L)}_{ij} \propto \frac{\partial}{\partial W^{(L)}_{ij}}L_{mod} & = & \sum_{kl}W^{(L)}_{ik}W^{(L+1)}_{jl}W^{(L+1)}_{jl} \nonumber
-\end{eqnarray}
-The larger the three other edges are in a loop, the more the final edge will be increased. Moreover, this particular choice of regularization has the effect of increasing this weight most when the weights among the other edges are evenly distributed.
 
+![eq3](https://github.com/AI-RG/modular/blob/master/assets/loss2.gif)
 
+The larger the three other edges are in a loop, the more the final edge will be increased. Moreover, this particular choice of regularization has the effect of increasing this weight most when the weights among the other edges are evenly distributed (for a sum of weights held constant).
 
 
 ## Results and future directions
