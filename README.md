@@ -52,14 +52,26 @@ In order to give modularity the greatest chance of success, we opted to retrain 
 
 Requirements: Python 3.5+ and TensorFlow 1.8.0+
 
-The code can be run by downloading the repository and simply running
-    python run.py
+The code can be executed by downloading the repository and simply running
+
+    python3 run.py
+
 from within the directory `modular`.
 
 Quantities of interest are automatically logged to TensorBoard, where they can be tracked in real time during training. Logged quantities include individual weights, train/test accuracies, and the magnitudes of loop regularization terms and weight decay terms. These logs are saved in the directory `/tmp/modular/` by default. To monitor their values, simply run
+
     tensorboard --logdir=/tmp/modular
+
 in the command line. Tensorboard will return the address of a tensorboard session that you can open in your internet browser.
+
+For now, parameters must be changed within the file `run.py`; passing command line arguments with `tf.FLAGS` will arrive soon.
 
 ### Technical considerations
 
+For ease and efficiency of implementation, we use a slightly tweaked version of the above objective function--namely
+
 ## Bibliography
+
+
+
+
